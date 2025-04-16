@@ -29,6 +29,8 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
+    private MailService mailService;
+    @Autowired
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
@@ -46,14 +48,28 @@ public class AuthService {
         }
 
         List<Role> roleList = new ArrayList<>();
-        roleList.add(roleRepository.findRoleByName("USER").get());
 
-        userRepository.save(new User()
+        Role clientRole = roleRepository.findRoleByName("CLIENT")
+                .orElseThrow(() -> new BadRequestException("Role CLIENT not found in DB"));
+
+        roleList.add(clientRole);
+
+        User user = new User()
                 .setEmail(registerDto.getEmail())
                 .setPassword(passwordEncoder.encode(registerDto.getPassword()))
                 .setUsername(registerDto.getUsername())
-                .setRoles(roleList));
+                .setRoles(roleList);
+
+        userRepository.save(user);
+
+        // 📨 Trimite email de bun venit
+        mailService.sendMail(
+                registerDto.getEmail(),
+                "Bun venit pe platforma Ferma!",
+                "<h1>Salut, " + registerDto.getUsername() + "!</h1><p>Contul tău a fost creat cu succes.</p>"
+        );
     }
+
 
     public String login(LoginDto loginDto) {
         Optional<User> optionalUser = userRepository.findUserByEmail(loginDto.getEmail());
