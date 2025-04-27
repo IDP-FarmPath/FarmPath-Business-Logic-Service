@@ -1,0 +1,36 @@
+# Changelog
+
+## [2025-04-13] – Initial Monolithic App
+- Single Spring Boot project containing both **Auth** (registration, login, JWT) and **Domain** (categories, equipment, rentals) layers
+- Launched locally via `mvn spring-boot:run`, no Docker, no schema migrations
+- All controllers, services and security config in one codebase
+
+## [2025-04-27] – Split into Auth & Backend Services
+- **Dockerized**: two services (Auth on 8081, Backend on 8080) + Postgres (5432) via `docker-compose`
+- Introduced Spring **profiles** (`auth` / `backend`) to isolate each service’s beans/controllers
+- Extracted shared beans (`PasswordEncoder`, JWT filter/entry-point/generator, user-details service) into common config
+- Auth service now exposes only `/api/v1/auth/**`; Backend service handles `/categories`, `/equipment`, `/rentals` secured by JWT & roles
+- Added **Springdoc OpenAPI** UIs with profile-scoped `GroupedOpenApi`:
+  - Auth UI → `http://localhost:8081/swagger-ui.html`
+  - Backend UI → `http://localhost:8080/swagger-ui.html`
+- Flyway migrations V1–V3 for schema & tables, V4 to seed an `ADMIN` user in the `project` schema
+- End-to-end bash scripts (`test-all.sh`, `test-admin-only.sh`) for registration, login, category creation (ADMIN) and listing (CLIENT)
+
+## Task Allocation
+
+### Irene Mihaela Musat: Infrastructure & Data Layer
+- Write Dockerfiles for Auth and Backend services
+- Create `docker-compose.yml` with Auth, Backend, and Postgres containers
+- Develop Flyway migrations V1–V3 (schema, tables) and V4 (seed admin into `project.users` & `project.user_roles`)
+- Extract and centralize shared Spring beans (`PasswordEncoder`, etc.) into a common config class
+- Validate database setup: drop/recreate volume, verify migrations and admin row in `psql`
+
+### Ion Vlad-Vasile: Security, API & Testing
+- Define `auth` and `backend` Spring profiles and corresponding `SecurityConfiguration` classes
+- Ensure JWT components (`JwtAuthEntryPoint`, filter, generator, user-details service) load in both profiles
+- Add `springdoc-openapi-ui`, configure `GroupedOpenApi` for each profile, annotate controllers with `@Profile`
+- Implement Swagger UIs on 8081 (Auth) and 8080 (Backend), ensuring all endpoints appear correctly
+- Write and harden bash test scripts:
+  - `test-admin-only.sh` for ADMIN login & category creation
+  - `test-all.sh` for full CLIENT + ADMIN flow
+- Manually verify with `curl` that login, create, and list operations work under both roles
