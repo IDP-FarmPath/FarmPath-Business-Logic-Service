@@ -6,11 +6,12 @@ import com.mobylab.springbackend.repository.CategoryRepository;
 import com.mobylab.springbackend.service.dto.CategoryRequestDTO;
 import com.mobylab.springbackend.service.dto.CategoryResponseDTO;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Profile("backend")
 @Service
 public class CategoryService {
 

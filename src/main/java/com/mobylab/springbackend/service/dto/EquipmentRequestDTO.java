@@ -1,4 +1,8 @@
 package com.mobylab.springbackend.service.dto;
+
+import org.springframework.context.annotation.Profile;
+
+@Profile("backend")
 public class EquipmentRequestDTO {
     private String name;
     private String description;

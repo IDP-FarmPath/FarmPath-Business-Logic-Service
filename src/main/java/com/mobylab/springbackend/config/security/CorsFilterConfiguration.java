@@ -1,9 +1,10 @@
 package com.mobylab.springbackend.config.security;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
+@Profile("auth")
 @Configuration
 public class CorsFilterConfiguration implements WebMvcConfigurer {
 

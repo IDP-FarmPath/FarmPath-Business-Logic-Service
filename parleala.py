@@ -1,7 +1,7 @@
 import requests
 import sys
 
-BASE_URL = "http://localhost:8090"
+BASE_URL = "http://localhost:8081"
 AUTH_ENDPOINT = f"{BASE_URL}/api/v1/auth"
 CATEGORY_ENDPOINT = f"{BASE_URL}/categories"
 EQUIPMENT_ENDPOINT = f"{BASE_URL}/equipment"
@@ -47,6 +47,7 @@ print("Admin token:", admin_token[:30] + "...")
 
 headers_admin = {"Authorization": f"Bearer {admin_token}"}
 
+BASE_URL = "http://localhost:8080"
 # === ADD CATEGORY ===
 category_payload = {"name": "Tractoare"}
 resp = requests.post(CATEGORY_ENDPOINT, json=category_payload, headers=headers_admin)

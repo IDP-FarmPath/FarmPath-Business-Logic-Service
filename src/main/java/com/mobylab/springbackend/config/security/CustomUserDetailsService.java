@@ -3,6 +3,7 @@ package com.mobylab.springbackend.config.security;
 import com.mobylab.springbackend.entity.Role;
 import com.mobylab.springbackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -9,11 +9,12 @@ import com.mobylab.springbackend.service.dto.EquipmentRequestDTO;
 import com.mobylab.springbackend.service.dto.EquipmentResponseDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Profile("backend")
 @Service
 public class EquipmentService {
 

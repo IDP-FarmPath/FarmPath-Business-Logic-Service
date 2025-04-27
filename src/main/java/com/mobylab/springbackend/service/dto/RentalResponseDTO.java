@@ -1,8 +1,10 @@
 package com.mobylab.springbackend.service.dto;
 
 
-import java.time.LocalDate;
+import org.springframework.context.annotation.Profile;
 
+import java.time.LocalDate;
+@Profile("backend")
 public class RentalResponseDTO {
     private Long id;
     private String equipmentName;

@@ -1,7 +1,8 @@
 package com.mobylab.springbackend.service.dto;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
+@Profile("auth")
 @Component
 public class RegisterDto {
 

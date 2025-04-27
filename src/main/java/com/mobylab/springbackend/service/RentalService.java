@@ -11,10 +11,11 @@ import com.mobylab.springbackend.repository.UserRepository;
 import com.mobylab.springbackend.service.dto.RentalRequestDTO;
 import com.mobylab.springbackend.service.dto.RentalResponseDTO;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
+@Profile("backend")
 @Service
 public class RentalService {
 

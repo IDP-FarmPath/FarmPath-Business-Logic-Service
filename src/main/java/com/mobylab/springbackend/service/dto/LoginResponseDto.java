@@ -3,8 +3,9 @@ package com.mobylab.springbackend.service.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
+@Profile("auth")
 @Component
 public class LoginResponseDto {
 
