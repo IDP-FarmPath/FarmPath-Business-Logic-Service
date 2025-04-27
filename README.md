@@ -1,3 +1,3 @@
-# MobyLabWebProgramming Proiect
+# Backend + Auth
 
-In acest momentul proiectul are doar backend-ul facut si poate fi testat cu Swagger UI.
+In acest momentul proiectul are compenenta de business logic si de auth, ambele fiind incapsulate in imagini de docker.
